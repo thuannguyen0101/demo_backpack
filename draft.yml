@@ -1,0 +1,33 @@
+models:
+  Models\Classification:
+    parent_id: id foreign:classifications nullable
+    lft: integer unsigned nullable
+    rgt: integer unsigned nullable
+    name: string
+    slug: string unique
+    timestamps: true
+    softDeletes: true
+    relationships:
+      hasMany: Story
+
+  Models\Story:
+    classification_id: id foreign
+    title: string
+    slug: string unique default:''
+    content: text
+    image: string nullable
+    status: enum:PUBLISHED,DRAFF
+    date: date
+    featured: boolean default:0
+    timestamps: true
+    softDeletes: true
+    relationships:
+      belongsToMany: Tag
+  Models\Tag:
+    name: string
+    slug: string unique
+    timestamps: true
+    softDeletes: true
+    relationships:
+      belongsToMany: Story
+seeder: Classification, Story, Tag
